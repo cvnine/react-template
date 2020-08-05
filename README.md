@@ -1,4 +1,4 @@
-### react 模板
+## react 模板
 
 create-react-app 结合 react-app-rewired 的形式。
 
@@ -7,16 +7,16 @@ create-react-app 结合 react-app-rewired 的形式。
 
 - [ ] workbox 待测试
 
+----
 
-------
+## 额外配置说明
 
-##### 关闭 PWA
+#### 关闭 PWA
 
 在 入口文件 index.js 将 `serviceWorker.register();` 改为 `serviceWorker.unregister();`
 
-------
 
-##### 在本模板基础上增加 Ant Design 组件库需自行增加如下步骤
+#### 在本模板基础上增加 Ant Design 组件库需自行增加如下步骤
 1. 安装依赖
 ```
 yarn add less less-loader antd-dayjs-webpack-plugin babel-plugin-import -D
