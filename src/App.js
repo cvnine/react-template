@@ -1,25 +1,16 @@
 import React from 'react';
-import './App.scss';
+import { Provider } from 'mobx-react';
+import { stores, StoresContext } from './store';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+    return (
+        <Provider {...stores}>
+            <StoresContext.Provider value={stores}>
+                <div></div>
+            </StoresContext.Provider>
+        </Provider>
+    );
 }
 
 export default App;
