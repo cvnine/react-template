@@ -27,6 +27,7 @@ yarn add antd
 2. 在 config-overrides.js 增加如下代码
 ```diff
 + const AntdDayjsWebpackPlugin = require('antd-dayjs-webpack-plugin');
++ const { addLessLoader, fixBabelImports, addWebpackPlugin } = require('customize-cra');
 
 module.exports = {
     webpack: override(

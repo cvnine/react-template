@@ -1,7 +1,7 @@
 const path = require('path');
 const { merge } = require('webpack-merge');
 const {
-    override, addDecoratorsLegacy, addLessLoader, fixBabelImports, addWebpackAlias, addWebpackPlugin, addBundleVisualizer
+    override, addDecoratorsLegacy, addWebpackAlias, addBundleVisualizer
 } = require('customize-cra');
 const WorkboxWebpackPlugin = require('workbox-webpack-plugin');
 
