@@ -31,8 +31,6 @@ const Layout = () => {
 				</section>
 				{hasFull && (
 					<Footer>
-						<span className="organization">科达视讯云平台产品部</span>
-						<span>Copyright © 2020 KEDACOM. All rights reserved.</span>
 					</Footer>
 				)}
 			</LayoutWrap>

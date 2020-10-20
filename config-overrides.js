@@ -13,7 +13,6 @@ const {
 } = require('customize-cra')
 const WorkboxWebpackPlugin = require('workbox-webpack-plugin')
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 //修改 环境变量
 process.env.PORT = 9000
@@ -75,15 +74,13 @@ const overrideGenerateSWConfig = (config, env) => {
 	return config
 }
 
-const kedacomConfig = (config, env) => {
+const Config = (config, env) => {
 	let include = getBabelLoader(config).include
-	getBabelLoader(config).include = [include, /node_modules(\\|\/)@kedacom-new(\\|\/)react-base/]
+	getBabelLoader(config).include = [include]
 
 	config = adjustStyleLoaders(({ use: [, , , , processor] }) => {
 		// pre-processor
-		if (processor && processor.loader.includes('sass-loader')) {
-			processor.options.prependData = `@import "@kedacom-new/react-base/theme/index.scss";`
-		}
+		
 	})(config, env)
 
 	let extensions = config.resolve.extensions
@@ -93,52 +90,6 @@ const kedacomConfig = (config, env) => {
 	})(config, env)
 
 	config.resolve.plugins = removePlugin(config.resolve.plugins, 'ModuleScopePlugin')
-
-	return config
-}
-
-const ToolsConfig = (config, env) => {
-	const paths = require('react-scripts/config/paths')
-	const getClientEnvironment = require('react-scripts/config/env')
-	const envR = getClientEnvironment(paths.publicUrlOrPath.slice(0, -1))
-	const shouldInlineRuntimeChunk = process.env.INLINE_RUNTIME_CHUNK !== 'false'
-	const InlineChunkHtmlPlugin = require('react-dev-utils/InlineChunkHtmlPlugin')
-	const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin')
-
-	let plugin = [
-		new HtmlWebpackPlugin(
-			Object.assign(
-				{},
-				{
-					inject: true,
-					template: path.resolve(__dirname, './public/index_full.html'),
-					filename: 'index_full.html',
-				},
-				'development' !== process.env.NODE_ENV
-					? {
-							minify: {
-								removeComments: true,
-								collapseWhitespace: true,
-								removeRedundantAttributes: true,
-								useShortDoctype: true,
-								removeEmptyAttributes: true,
-								removeStyleLinkTypeAttributes: true,
-								keepClosingSlash: true,
-								minifyJS: true,
-								minifyCSS: true,
-								minifyURLs: true,
-							},
-					  }
-					: undefined
-			)
-		),
-		'development' !== process.env.NODE_ENV &&
-			shouldInlineRuntimeChunk &&
-			new InlineChunkHtmlPlugin(HtmlWebpackPlugin, [/runtime-.+[.]js/]),
-		new InterpolateHtmlPlugin(HtmlWebpackPlugin, envR.raw),
-	]
-
-	config.plugins = [...plugin.filter(Boolean), ...config.plugins]
 
 	return config
 }
@@ -171,8 +122,7 @@ module.exports = {
 				paths: true,
 			})
 		),
-		kedacomConfig,
-		ToolsConfig
+		Config,
 
 		// addBundleVisualizer(),
 	),

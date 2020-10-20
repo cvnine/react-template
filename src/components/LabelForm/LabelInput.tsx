@@ -1,17 +1,11 @@
 import React, { useState, useCallback, useEffect, useMemo, FC } from 'react'
 import { LabelWrap } from './LabelWrap'
-import { Input, InputProps } from '@kedacom-new/react-base'
 
-export interface LabelInputProps extends InputProps {
+export interface LabelInputProps {
 	label: string
 	labelWidth?: number
 	width?: number | string
 	required?: boolean
-}
-
-export const InputBus: FC<InputProps> = (props) => {
-	const { width = 145, ...res } = props
-	return <Input width={width} {...res}></Input>
 }
 
 export const LabelInput: FC<LabelInputProps> = (props) => {
@@ -19,7 +13,7 @@ export const LabelInput: FC<LabelInputProps> = (props) => {
 
 	return (
 		<LabelWrap labelWidth={labelWidth} label={label} required={required}>
-			<Input {...restProps} width={width || 300} />
+			<input {...restProps} width={width || 300} />
 		</LabelWrap>
 	)
 }

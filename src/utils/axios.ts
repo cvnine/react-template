@@ -1,6 +1,5 @@
 import axios from 'axios'
 import qs from 'qs'
-import { Alert } from '@kedacom-new/react-base'
 
 const service = axios.create({
 	baseURL: './',
@@ -28,14 +27,7 @@ service.interceptors.response.use(
 
 		if (response.status !== 200 || res?.success !== 1) {
 			//弹窗
-			if (infoAlert) return Promise.reject('error')
-			infoAlert = Alert.info({
-				content: res?.description ?? '系统错误',
-				onOk: () => {
-					Alert.remove(infoAlert)
-					infoAlert = ''
-				},
-			})
+			
 			return Promise.reject('error')
 		} else {
 			return res
@@ -44,14 +36,7 @@ service.interceptors.response.use(
 	(error) => {
 		if (infoAlert) return Promise.reject(error)
 		//弹窗
-		infoAlert = Alert.info({
-			content: '系统错误',
-			onOk: () => {
-				Alert.remove(infoAlert)
-				infoAlert = ''
-			},
-		})
-
+		
 		return Promise.reject(error)
 	}
 )

@@ -1,6 +1,5 @@
 import React, { useState, useCallback, useEffect, FC } from 'react'
 import { LabelWrap } from './LabelWrap'
-import { Select, SelectProps } from '@kedacom-new/react-base'
 
 export interface ISelectOptionsData {
 	optionValueKey: string
@@ -8,7 +7,7 @@ export interface ISelectOptionsData {
 	[params: string]: any
 }
 
-export interface SelectBusProps extends SelectProps {
+export interface SelectBusProps  {
 	style: React.CSSProperties
 	height: number | string
 	width: number | string
@@ -18,7 +17,7 @@ export interface SelectBusProps extends SelectProps {
 	virtual: boolean
 }
 
-export interface LabelSelectProps extends SelectProps {
+export interface LabelSelectProps {
 	label: string
 	labelWidth?: number
 	optionValueKey?: string
@@ -38,7 +37,7 @@ export const SelectBus = (props: Partial<SelectBusProps>) => {
 		...restProps
 	} = props
 	return (
-		<Select
+		<select
 			{...restProps}
 			style={{ ...style, flex: `0 0 ${width || 180}` }}
 			width={width || 160}
@@ -56,7 +55,7 @@ export const SelectBus = (props: Partial<SelectBusProps>) => {
 					</Select.Option>
 				)
 			})}
-		</Select>
+		</select>
 	)
 }
 
